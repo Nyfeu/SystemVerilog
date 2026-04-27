@@ -13,16 +13,31 @@ make sim DIR=<nome_da_pasta> MOD=<nome_do_modulo_base>
 
 ## 📚 Diário de Projetos e Conceitos Aprendidos
 
-### `00_d_flip_flop`
+### - `00_d_flip_flop`
 
-- Conceito: O bloco fundamental de memória.
+- **Conceito**: O bloco fundamental de memória.
 
-- O que aprendi de SystemVerilog aqui:
-	- Uso do module para unificar a interface e implementação.
-	- O tipo logic substitui as dores de cabeça do wire/reg.
+- **Aprendizado**:
+	- Uso do `module` para unificar a interface e implementação.
+	- O tipo `logic` substitui as dores de cabeça do `wire`/`reg`.
 	- Blocos sequenciais usam `always_ff @(posedge clk or negedge rst_n)`.
-	- Importância da atribuição não-bloqueante (<=) para simular o paralelismo de registradores de hardware.
+	- Importância da atribuição não-bloqueante (`<=`) para simular o paralelismo de registradores de hardware.
 
----
+### - `01_parametrizable_register`
+
+- **Conceito**: Registrador genérico de N-bits, a estrutura base para construir caminhos de dados (datapaths) flexíveis e redimensionáveis.
+
+- **Aprendizado**:
+
+	- Substituição do `generic` do VHDL pela declaração `parameter` (ex: `#(parameter int WIDTH = 32)`).
+
+	- Sobrescrita de parâmetros durante a instanciação de módulos utilizando a sintaxe `#(.PARAM(valor))`.
+
+	- O poder do literal `'0` (All Zeros) do SystemVerilog para preencher vetores de qualquer largura automaticamente no reset, eliminando o verboso `(others => '0')`.
+
+	- Declaração de constantes locais de tempo de compilação usando `localparam` (ideal para testbenches).
+
+	- Notação explícita de tamanho, base e valor para injeção de estímulos em barramentos de dados (ex: `16'hDEAD` para 16 bits em hexadecimal).
+
 
 

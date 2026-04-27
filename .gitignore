@@ -1,0 +1,3 @@
+# Remove object files and simulation outputs
+obj_dir/
+*.vcd

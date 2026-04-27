@@ -62,8 +62,7 @@ module register_tb;
 
         clk = 0;
         en = 0;
-        // In SV, the literal '0 automatically fills vectors of any size with zeros.
-        d = '0; 
+        d = '0;    // In SV, the literal '0 automatically fills vectors of any size with zeros. 
         rst_n = 0; // Assert reset (active-low)
 
         // Wait 15 time units (1.5 clock cycles) then release reset.
@@ -75,8 +74,7 @@ module register_tb;
         // Test A: Write a hexadecimal value into the register
 
         @(negedge clk);
-        // 16'hDEAD means: 16 bits wide, Hexadecimal format, value DEAD
-        d = 16'hDEAD; 
+        d = 16'hDEAD; // 16'hDEAD means: 16 bits wide, Hexadecimal format, value DEAD
         en = 1;
 
         // Wait for the next falling edge to assert the output.

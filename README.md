@@ -41,12 +41,15 @@ make sim DIR=<nome_da_pasta> MOD=<nome_do_modulo_base>
 
 ### - `02_riscv_base_blocks`
 
-- **Conceito**: Blocos de hardware fundamentais da arquitetura RISC-V. 
+- **Conceito**: Blocos de hardware fundamentais da arquitetura RISC-V. A implementação abrange o Banco de Registradores (*Register File*) — garantindo a regra de *hardwired zero* no registrador `x0` — e a Unidade Lógica Aritmética (ALU), acompanhada de um pacote global de definições da arquitetura.
 
 - **Aprendizado**:
 	- Declaração de memórias nativas usando Arrays Multidimensionais (*Unpacked Arrays*, ex: `logic [31:0] mem [0:31]`), substituindo a necessidade de criar `types` customizados como no VHDL.
 	- Introdução ao bloco `always_comb` para modelar lógica combinacional pura com segurança e intenção clara.
-	- Utilização do Operador Ternário (`condicao ? verdadeiro : falso`) para criar multiplexadores em uma única linha (essencial para a proteção do `x0`).
-	- Uso do operador de deslocamento lógico (`<<`) para calcular dinamicamente a profundidade da memória baseada no parâmetro de endereços (`1 << ADDR_WIDTH`).
+	- Utilização do Operador Ternário (`condicao ? verdadeiro : falso`) para criar multiplexadores em uma única linha.
+	- Criação de pacotes globais (`package` e `import`) para organizar definições, evitar a dispersão de constantes e manter o projeto portável.
+	- Proteção de arquivos contra múltiplas inclusões utilizando **Include Guards** (`` `ifndef ``, `` `define ``, `` `endif ``), aplicando lógicas clássicas de pré-processamento do C/C++ ao design de hardware.
+	- Uso de **Tipos Enumerados** (`typedef enum`) para garantir tipagem forte e legibilidade na roteirização de sinais de controle (ex: `ALU_ADD`, `ALU_SUB`).
+	- Conversões seguras e limpas com a sintaxe `$signed()` para operações sensíveis a sinal, simplificando a implementação de deslocamentos aritméticos (`>>>` vs `>>`) e comparações (`SLT` vs `SLTU`) em contraste com a extrema verbosidade do VHDL.
 	- Prática de "Hexspeak" nos *testbenches* (ex: `32'hCAFE_BABE`, `32'hDEAD_BEEF`) para criar assinaturas visuais e facilitar o rastreamento de dados nas formas de onda geradas no GTKWave.
 

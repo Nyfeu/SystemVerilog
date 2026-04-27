@@ -53,3 +53,13 @@ make sim DIR=<nome_da_pasta> MOD=<nome_do_modulo_base>
 	- Conversões seguras e limpas com a sintaxe `$signed()` para operações sensíveis a sinal, simplificando a implementação de deslocamentos aritméticos (`>>>` vs `>>`) e comparações (`SLT` vs `SLTU`) em contraste com a extrema verbosidade do VHDL.
 	- Prática de "Hexspeak" nos *testbenches* (ex: `32'hCAFE_BABE`, `32'hDEAD_BEEF`) para criar assinaturas visuais e facilitar o rastreamento de dados nas formas de onda geradas no GTKWave.
 
+### - `03_memories`
+
+- **Conceito**: Implementação da hierarquia básica de memória (RAM e ROM), explorando a inferência de blocos nativos de FPGA (BRAM), portas de acesso simultâneas e a escrita com granularidade de byte.
+
+- **Aprendizado**:
+	- Inferência explícita de Block RAM (BRAM) no Vivado utilizando Diretivas de Síntese (Pragmas) do SystemVerilog (ex: `(* ram_style = "block" *)`), simplificando imensamente os atributos de hardware do VHDL.
+	- Compreensão da importância da **leitura síncrona** (latência de 1 ciclo de *clock*) como requisito essencial para inferir memórias nativas no silício, evitando o esgotamento de *LUTs*.
+	- Modelagem de uma *True Dual-Port RAM* com **Byte-Write Enable**. Aprendizado do poderoso Operador de Seleção de Vetor do SV (`+:`) para fatiamento de arrays de forma escalável (ex: `ram[addr][(i*8) +: 8]`), crucial para o suporte de instruções RISC-V como `sb` (*Store Byte*) e `sh` (*Store Halfword*).
+	- Inicialização nativa e limpa de memórias (ROM) com a *System Task* `$readmemh`, carregando dados diretamente de arquivos `.hex` ou `.mif` e extinguindo a verbosidade da biblioteca `std.textio` do VHDL.
+	- Parametrização de strings (`parameter string INIT_FILE`) para apontar dinamicamente os binários de *firmware* diretamente no *testbench*, permitindo reutilização fluida de componentes.

@@ -63,7 +63,7 @@ sim:
 	@if [ ! -f $(TB) ]; then echo "❌ Erro: Testbench $(TB) não encontrado!"; exit 1; fi
 	@mkdir -p obj_dir
 	@# O pulo do gato: joga a saída pro build.log. Se falhar (||), ele cospe o log na tela e para.
-	@verilator --binary --trace --assert --top-module $(MOD)_tb $(SRC) $(TB) > obj_dir/build.log 2>&1 || (cat obj_dir/build.log && exit 1)
+	@verilator --binary --trace --assert -I. -I$(DIR) --top-module $(MOD)_tb $(SRC) $(TB) > obj_dir/build.log 2>&1 || (cat obj_dir/build.log && exit 1)
 	@echo ">>> 🖥️  EXECUTANDO SIMULAÇÃO..."
 	@echo "-------------------------------------------------------------------"
 	@$(BIN)
